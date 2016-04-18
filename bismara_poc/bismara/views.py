@@ -1,16 +1,17 @@
-from django.contrib.auth.models import User
 from bismara.serializers import UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser
-from bismara.models import Doctor
+from bismara.models import Doctor, User
 from bismara.serializers import DoctorSerializer
 from bismara.permissions import *
 from rest_framework import renderers
 from rest_framework.decorators import detail_route
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 #The ONLY EntryPoint. This is great :)
 @api_view(['GET'])
@@ -30,8 +31,8 @@ class DoctorViewSet(viewsets.ModelViewSet):
     """
     queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    #                       IsOwnerOrReadOnly,)
     #
     # @detail_route(renderer_classes=[renderers.StaticHTMLRenderer])
     # def highlight(self, request, *args, **kwargs):
@@ -39,7 +40,7 @@ class DoctorViewSet(viewsets.ModelViewSet):
     #     return Response(doctor.highlighted)
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save()
 
 #For READ ONLY viewset use viewsets.ReadOnlyModelViewSet
 class UserViewSet(viewsets.ModelViewSet):
@@ -48,7 +49,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAdminUser,)
+    #permission_classes = (IsAdminUser,)
 
     def perform_create(self, serializer):
         serializer.save()

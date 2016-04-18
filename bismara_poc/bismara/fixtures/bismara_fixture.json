@@ -1,0 +1,43 @@
+[{
+ "fields": {
+  "name" : "Admin"
+},
+  "model" : "auth.group",
+  "pk" : 1
+},
+  {
+ "fields": {
+  "name" : "Doctor"
+},
+  "model" : "auth.group",
+  "pk" : 2
+},
+  {
+ "fields": {
+  "name" : "Patient"
+},
+  "model" : "auth.group",
+  "pk" : 3
+},
+  {
+ "fields": {
+  "description" : "Pending"
+},
+  "model" : "bismara.userstate",
+  "pk" : 1
+},
+{
+ "fields": {
+  "description" : "Confirmed"
+},
+  "model" : "bismara.userstate",
+  "pk" : 2
+},
+{
+ "fields": {
+  "description" : "Deleted"
+},
+  "model" : "bismara.userstate",
+  "pk" : 3
+}
+]
